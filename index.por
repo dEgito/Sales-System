@@ -6,6 +6,7 @@ programa {
   cadeia passwordRegister
   cadeia user
   cadeia password
+  cadeia message
 
   logico loggedUser
 
@@ -13,24 +14,31 @@ programa {
     inteiro option
 
     escreva("Bem-vindo ao sistema de Compras\n")
-    escreva("Selecione uma das op��es abaixo:\n\n")
-    escreva("1 - Login\n")
-    escreva("2 - Cadastro\n")
+    escreva("Selecione uma das opções abaixo:\n\n")
+    escreva("1 - Cadastro\n")
+    escreva("2 - Login\n")
+    escreva("3 - Acessar sistema\n")
     leia(option)
     escreva("\n")
 
     escolha (option) {
       caso 1:
         limpa()
-        Login(user, password)
+        RegisterUser(userRegister, passwordRegister)
       pare
 
       caso 2:
         limpa()
-        RegisterUser(userRegister, passwordRegister)
+        Login(user, password)
       pare
+
+      caso 3:
+        limpa()
+        ValidateSystem(loggedUser)
+      pare
+
       caso contrario: 
-        escreva("Op��o inv�lida, tente novamente!\n" )
+        escreva("Opção inválida, tente novamente!\n" )
         escreva("Encerrando programa...\n\n")
         Home()
         limpa()
@@ -38,10 +46,32 @@ programa {
     }
   }
 
-  funcao Login(user, password) {
-    escreva("1 - Login \n\n")
+  funcao RegisterUser(userRegister, passwordRegister, message) {
+    caracter option
+    message = ""
 
-    escreva("Por favor, digite seu nome de usu�rio (sem caracteres especiais): \n")
+    StyleSpacer()
+
+    escreva("1 - Cadastro\n\n")
+
+    escreva("Digite um nome de usuário (sem caracteres especiais e acentos):\n")
+    leia(userRegister)
+    escreva("Digite uma senha de 4 a 8 dígitos): \n")
+    leia(passwordRegister)
+    escreva("\nUsuário ", userRegister, " cadastrado com sucesso.\n")
+    escreva("Digite qualquer tecla para ser redirecionado para o login.")
+
+    leia(option)
+    limpa()
+    Login(userRegister, passwordRegister)
+  }
+
+  funcao Login(user, password, message) {
+    StyleSpacer()
+
+    escreva("2 - Login \n\n")
+
+    escreva("Por favor, digite seu nome de usuário (sem caracteres especiais): \n")
     leia(user)
     escreva("\nDigite sua senha: \n")
     leia(password)
@@ -50,7 +80,8 @@ programa {
     ValidateUser()
   }
 
-  funcao ValidateUser(user, userRegister, password, passwordRegister, loggedUser) {
+  funcao ValidateUser(user, userRegister, password, passwordRegister, loggedUser, message) {
+    message = ""
     caracter option
 
     se (user === userRegister e password === passwordRegister) {
@@ -58,34 +89,36 @@ programa {
       escreva("Login feio com sucesso!\n")
       escreva("Digite qualquer tecla para acessar o sistema!\n")
       leia(option)
-      System(user)
-      limpa()
 
     } senao {
       loggedUser = falso
-      escreva("Dados incorretos, tente novamente. \n\n")
+      escreva("Dados incorretos, tente novamente. \n")
       Login(user, password)
+    }
+    ValidateSystem(loggedUser)
+  }
+
+  funcao ValidateSystem(loggedUser) {
+    caracter option
+
+    se (loggedUser == verdadeiro) {
+      SalesSystem(user)
+    } senao {
+      escreva("Você não está logado, tecle enter para ser redirecionado de volta ao menu.")
+      leia(option)
+      limpa()
+      Home()
     }
   }
 
-  funcao RegisterUser(userRegister, passwordRegister) {
-    caracter option
+  funcao SalesSystem(user) {
+    StyleSpacer()
+    escreva("Seja bem-vindo, ", user, " !\n\n")
 
-    escreva("2 - Cadastro\n\n")
-
-    escreva("Digite um nome de usu�rio (sem caracteres especiais e acentos):\n")
-    leia(userRegister)
-    escreva("Digite uma senha de 4 a 8 d�gitos): \n")
-    leia(passwordRegister)
-    escreva("\nUsu�rio ", userRegister, " cadastrado com sucesso.\n")
-    escreva("Digite qualquer tecla para ser redirecionado para o login.")
-
-    leia(option)
-    limpa()
-    Login(userRegister, passwordRegister)
   }
 
-  funcao System(loggedUser) {
-    escreva("Seja bem-vindo, ", user, " !\n\n")
+  funcao StyleSpacer() {
+    escreva(message)
+    escreva("\n-------------------------------------------------------------------\n\n")
   }
 }
