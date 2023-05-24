@@ -54,9 +54,9 @@ programa {
 
     escreva("1 - Cadastro\n\n")
 
-    escreva("Digite um nome de usuário (sem caracteres especiais e acentos):\n")
+    escreva("Digite um nome de usuário (sem caracteres especiais):\n")
     leia(userRegister)
-    escreva("Digite uma senha de 4 a 8 dígitos): \n")
+    escreva("Digite uma senha (sem caracteres especiais): \n")
     leia(passwordRegister)
     escreva("\nUsuário ", userRegister, " cadastrado com sucesso.\n")
     escreva("Digite qualquer tecla para ser redirecionado para o login.")
