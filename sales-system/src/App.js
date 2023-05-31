@@ -1,6 +1,8 @@
+import Home from "./home";
+
 function App() {
   return (
-    <h1>Sales System</h1>
+    <Home />
   );
 }
 
