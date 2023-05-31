@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Container } from '../style';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [selectedOption, setSelectedOption] = useState('');
@@ -25,7 +27,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <Container>
       <p>Bem-vindo ao Sugar Race!</p>
       <label>Selecione uma opção:</label>
       <select value={selectedOption} onChange={handleSelectChange}>
@@ -35,7 +37,7 @@ function Home() {
         <option value="3">Acessar sistema</option>
       </select>
       <button onClick={handleOptionSelect}>Selecionar</button>
-    </div>
+    </Container>
   );
 }
 
